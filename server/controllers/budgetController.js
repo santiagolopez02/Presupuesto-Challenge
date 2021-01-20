@@ -10,6 +10,7 @@ budget.createRecord = async (req , res) => {
     if(!error.isEmpty()){
         return res.status(400).json({error : error.array()});
     }
+    
     //create record
     const newBudget = await database.budget.create(req.body).catch(err =>{
         res.status(500).json({
@@ -56,7 +57,7 @@ budget.typeRecord = async (req , res) => {
         }
     }).catch(err => {
         res.status(500).json({
-            message :"Error DataBase: change",
+            message :"Error DataBase: put",
             error: err
         })
     });
