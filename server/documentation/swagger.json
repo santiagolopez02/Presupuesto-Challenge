@@ -1,0 +1,169 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Alkemy Challenge Budget/ApiRest.",
+    "version": "1.0.0",
+    "title": "Budget Challenge"
+  },
+  "tags": [
+    {
+      "name": "budget",
+      "description": "CRUD budget record"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json",
+    "application/xml"
+  ],
+  "produces": [
+    "application/xml",
+    "application/json"
+  ],
+  "paths": {
+    "/budget": {
+      "post": {
+        "tags": [
+          "budget"
+        ],
+        "summary": "Create record",
+        "description": "",
+        "operationId": "createRecord",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "DataCreate record",
+            "description": "Require all field to create record budget",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/budget"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Record created succesfully"
+          },
+          "400": {
+            "description": "The fields are required"
+          },
+          "500": {
+            "description": "Error DataBase: create"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "budget"
+        ],
+        "summary": "Get all records",
+        "description": "Get all records",
+        "operationId": "getRecords",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array records"
+          },
+          "500": {
+            "description": "Error DataBase: select"
+          }
+        }
+      }
+    },
+    "/budget/{id}": {
+      "delete": {
+        "tags": [
+          "budget"
+        ],
+        "summary": "Delete record",
+        "description": "Delete record according to id",
+        "operationId": "deleteRecord",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Budget id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Record delete succesfully"
+          },
+          "500": {
+            "description": "Error DataBase: delete"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "budget"
+        ],
+        "summary": "Change type record",
+        "description": "Change type record according to id",
+        "operationId": "typeRecord",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Require data to change type",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Record change succesfully"
+          },
+          "500": {
+            "description": "Error DataBase: put"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "budget": {
+      "type": "object",
+      "properties": {
+        "concept": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "date": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "income",
+            "expenses"
+          ]
+        }
+      },
+      "xml": {
+        "name": "budget"
+      }
+    }
+  }
+}
