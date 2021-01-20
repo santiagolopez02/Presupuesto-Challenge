@@ -13,10 +13,10 @@ server.use("/budget", budget);
 //conexion DataBase
 database.sequelize.authenticate().then(() => {
     server.listen(3000, () => {
-        console.log("DB conect");
+        console.log("DataBase Connect");
     });
 })
 .catch(err =>{
-    console.log("No conect", err);
+    console.log("No connect", err);
 })
 

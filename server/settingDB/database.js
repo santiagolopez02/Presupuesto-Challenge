@@ -1,3 +1,4 @@
+let moment = require('moment'); // require
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('budget/challenge', "root","",{
     host: "localhost",
@@ -29,6 +30,9 @@ const budget = sequelize.define("budget" , {
     },
     date:{
         type: Sequelize.DATE,
+        get() {
+            return moment(this.getDataValue('date')).format('DD/MM/YYYY');
+        },
         allowNull: false
     },
     type:{
