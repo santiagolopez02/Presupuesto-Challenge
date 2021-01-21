@@ -4,7 +4,13 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
   return (
-      <h1>Hola App</h1>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={LogIn}/>
+          <Route exact path="/" component={CreateAccount}/>
+          <Route exact path="/" component={Budget}/>
+        </Switch>
+      </Router>
   );
 }
 
