@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 let moment = require('moment'); // require
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('budget/challenge', "root","",{
@@ -43,8 +44,43 @@ const budget = sequelize.define("budget" , {
 },{ freezeTableName: true , timestamps: false});
 
 
+//create schema user
+const user = sequelize.define("user", {
+    id:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    email:{
+        type: Sequelize.TEXT,
+        allowNull: false
+    },
+    password: {
+        type: Sequelize.TEXT,
+        allowNull: false
+    }
+},{
+    freezeTableName: true,
+    timestamps: false,
+    instanceMethods: {
+        generateHash(password) {
+            return bcrypt.hash(password, bcrypt.genSaltSync(8));
+        },
+        validPassword(password) {
+            return bcrypt.compare(password, this.password);
+        }
+    }
+})
+
+
+//relationship
+budget.belongsTo(user, {foreignKey: 'userId'});
+
 //export modules
 module.exports= {
     sequelize,
-    budget
+    budget,
+    user
 };
