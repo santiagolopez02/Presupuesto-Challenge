@@ -1,6 +1,7 @@
 const expres = require("express");
 const router = expres.Router();
 const budget = require('../controllers/budgetController');
+const generalMid = require('../middlewares/authToken')
 const { check } = require('express-validator');
 
 //path POST
@@ -11,6 +12,7 @@ router.post("/",
         check('date', 'The date is required').not().isEmpty(),
         check('type', 'The type is required').not().isEmpty(),
     ],
+    generalMid.validateToken,
     budget.createRecord
 );
 //path DELETE

@@ -4,7 +4,15 @@ const budget = {};
 
 //function create record
 budget.createRecord = async (req , res) => {
+    const loggerUser = res.locals.Payload;
 
+    const bodyRecord = {
+        concept: req.body.concept,
+        amount: req.body.amount,
+        date: req.body.date,
+        type: req.body.type,
+        userId: loggerUser.id
+    }
     //check  error
     const error = validationResult(req);
     if(!error.isEmpty()){
@@ -12,7 +20,7 @@ budget.createRecord = async (req , res) => {
     }
     
     //create record
-    const newBudget = await database.budget.create(req.body).catch(err =>{
+    const newBudget = await database.budget.create(bodyRecord).catch(err =>{
         res.status(500).json({
             message :"Error DataBase: create",
             error: err

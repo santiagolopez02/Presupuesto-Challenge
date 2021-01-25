@@ -9,10 +9,16 @@
 			"name": "POST create-record",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJzYW50aWFnb0BnbWFpbC5jb20iLCJpYXQiOjE2MTE1ODA2MjN9.jNutydtGReSVHgR-ydDD6c1tBSyufvSde8Umec8dJ3E",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"concept\": \"Gas\",\r\n    \"amount\": 1250,\r\n    \"date\": \"01/01/2021\",\r\n    \"type\": \"income\"\r\n}",
+					"raw": "{\r\n    \"concept\": \"pyme\",\r\n    \"amount\": 1500,\r\n    \"date\": \"11/13/1864\",\r\n    \"type\": \"income\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -53,7 +59,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "1"
+							"value": "8"
 						}
 					]
 				}
@@ -110,6 +116,64 @@
 					"path": [
 						"budget",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST create-user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"santiago@gmail.com\",\r\n    \"password\": \"1256\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"santiago@gmail.com\",\r\n    \"password\":\"1236\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login"
 					]
 				}
 			},
