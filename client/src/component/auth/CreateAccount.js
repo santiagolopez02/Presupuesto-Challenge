@@ -1,35 +1,38 @@
 import React, {useState, useContext} from 'react';
 import {Link} from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext'
+import AuthContext from '../../context/auth/authContext';
 
 
 const NewAccount = () => {
 //get value alert context
-    const alertContext = useContext(AlertContext); 
-    const { alert, showAlert} = alertContext;
-    
+const alertContext = useContext(AlertContext); 
+const { alert, showAlert} = alertContext;
+
+//get value auth context
+const authContext = useContext(AuthContext);
+const {createUser} = authContext;  
+
 //State user
-    const [user, setUser] = useState({
-        email:"",
-        password:"",
-        confirm:""
-    })
-//get value
-    const { email, password, confirm} = user;
+const [user, setUser] = useState({
+    email:"",
+    password:"",
+    confirm:""
+})
+const { email, password, confirm} = user; //get value
 
     
 //get value input
-    const onChange = e =>{
-        setUser({
-            ...user,
-            [e.target.name] : e.target.value
-        })
-    }
+const onChange = e =>{
+    setUser({
+        ...user,
+        [e.target.name] : e.target.value
+    })
+}
 
-//Submit fomr
-    const onSubmit = e =>{
-        e.preventDefault();
-
+//Submit form
+const onSubmit = e =>{
+    e.preventDefault();
     //Validate field form
     if(email.trim()==='' || password.trim()==='' || confirm.trim()===''){
         showAlert('All fields are required', 'alerta-error');
@@ -45,10 +48,12 @@ const NewAccount = () => {
         showAlert('Passwords must be the same', 'alerta-error');
         return;
     }
-
-    //Pasar al action
-
-    }
+    //Function auth context 
+    createUser({
+        email,
+        password
+    })
+}
     return ( 
         <div>
             {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
