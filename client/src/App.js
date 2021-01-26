@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import LogIn from './component/LogIn';
-import CreateAccount from './component/CreateAccount';
-import BudgetComponent from './component/BudgetComponent';
+import LogIn from './component/auth/LogIn';
+import CreateAccount from './component/auth/CreateAccount';
+import BudgetComponent from './component/budget/BudgetComponent';
 
 
 function App() {
