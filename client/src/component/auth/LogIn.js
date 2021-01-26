@@ -66,12 +66,11 @@ const onSubmit = e =>{
                         />
                     </div>
                 </form>
-                
-                
+
                 <Link
-                    to={'/nueva-cuenta'}
+                    to={'/new-account'}
                     
-                >Crear Cuenta</Link>
+                >Create account</Link>
             </div>
         </div>
      );

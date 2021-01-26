@@ -1,39 +1,58 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Link} from 'react-router-dom';
+import AlertContext from '../../context/alert/alertContext'
 
 
-const NuevaCuenta = () => {
-
-//State de usuario
+const NewAccount = () => {
+//get value alert context
+    const alertContext = useContext(AlertContext); 
+    const { alert, showAlert} = alertContext;
+    
+//State user
     const [user, setUser] = useState({
         email:"",
         password:"",
-        confirmar:""
+        confirm:""
     })
-//Extraigo los valores en const diferentes
-    const { email, password, confirmar} = user;
+//get value
+    const { email, password, confirm} = user;
 
     
-//capto los valores de los input y guardo el usuario
+//get value input
     const onChange = e =>{
         setUser({
             ...user,
             [e.target.name] : e.target.value
         })
     }
-//funcion para enviar el submit del form
-const onSubmit = e =>{
-    e.preventDefault();
 
-//Validar que los campos esten correctos
+//Submit fomr
+    const onSubmit = e =>{
+        e.preventDefault();
 
+    //Validate field form
+    if(email.trim()==='' || password.trim()==='' || confirm.trim()===''){
+        showAlert('All fields are required', 'alerta-error');
+        return;
+    }
+    //validate password min 6 characters
+    if(password.length < 6){
+        showAlert('The password have a minimum of 6 characters ', 'alerta-error');
+        return;
+    }
+    //validate password and confirm
+    if(password !== confirm){
+        showAlert('Passwords must be the same', 'alerta-error');
+        return;
+    }
 
-//Pasar al action
+    //Pasar al action
 
-}
+    }
     return ( 
-        <div className="form-usuario">
-            <div className="contenedor-form sombra-dark">
+        <div>
+            {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
+            <div>
                 <h1>Crear una Nueva Cuenta</h1>
 
                 <form
@@ -46,38 +65,37 @@ const onSubmit = e =>{
                             id="email"
                             value={email}
                             name="email"
-                            placeholder="Tu email..."
+                            placeholder="Your email..."
                             onChange={onChange}
                         />
                     </div>
-                    <div className="campo-form">
+                    <div>
                         <label htmlFor="password">Password:</label>
                         <input
                             type="password"
                             id="password"
                             value={password}
                             name="password"
-                            placeholder="Tu password..."
+                            placeholder="Your password..."
                             onChange={onChange}
                         />
                     </div>
-                    <div className="campo-form">
-                        <label htmlFor="confirmar">Confirmar Password:</label>
+                    <div>
+                        <label htmlFor="confirm">Confirm password:</label>
                         <input
                             type="password"
-                            id="confirmar"
-                            value={confirmar}
-                            name="confirmar"
-                            placeholder="Confirma tu password..."
+                            id="confirm"
+                            value={confirm}
+                            name="confirm"
+                            placeholder="Confirm password..."
                             onChange={onChange}
                         />
                     </div>
-                    <div className="campo-form">
+                    <div>
                         <input
                             type="submit"
                             id="submit"
-                            className="btn btn-primario btn-block"
-                            value="Crear Cuenta"
+                            value="Create Account"
                         />
                     </div>
                 </form>
@@ -85,11 +103,10 @@ const onSubmit = e =>{
                 
                 <Link
                     to={'/'}
-                    className="enlace-cuenta"
                 >Login</Link>
             </div>
         </div>
      );
 }
  
-export default NuevaCuenta;
+export default NewAccount;
