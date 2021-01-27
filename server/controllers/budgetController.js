@@ -59,6 +59,12 @@ budget.typeRecord = async (req , res) => {
     const idRecord = req.params.id;
     const typeChange = req.body.type;
 
+    //check  error
+    const error = validationResult(req);
+    if(!error.isEmpty()){
+        return res.status(400).json({error : error.array()});
+    }
+    
     const selectBudget = await database.budget.update({ type: typeChange }, {
         where :{
             id : idRecord

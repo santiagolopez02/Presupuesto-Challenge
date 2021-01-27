@@ -34,9 +34,14 @@ const AuthState = props => {
                 payload: token
             })
         } catch (error) {
-            console.log(error)
+            console.log(error.response)
+            const alert = {
+                msg: error.response.data.message,
+                category: 'alerta-error'
+            }
             dispach({
-                type:ERROR_REGISTRATION
+                type:ERROR_REGISTRATION,
+                payload: alert
             })
         }
     }

@@ -1,17 +1,29 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import AlertContext from '../../context/alert/alertContext'
 import AuthContext from '../../context/auth/authContext';
 
 
-const NewAccount = () => {
+const NewAccount = (props) => {
 //get value alert context
 const alertContext = useContext(AlertContext); 
 const { alert, showAlert} = alertContext;
 
 //get value auth context
 const authContext = useContext(AuthContext);
-const {createUser} = authContext;  
+const {message, authenticated, createUser} = authContext;  
+
+//case duplicate record user and redirect budget page
+useEffect(()=>{
+    //if authenticated is true
+    if(authenticated){
+        props.history.push('/budget');
+    }
+    //if there are msg errors
+    if(message){
+        showAlert(message.msg, message.category);
+    }
+},[message, authenticated, props.history]); 
 
 //State user
 const [user, setUser] = useState({

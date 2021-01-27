@@ -25,7 +25,8 @@ const AuthReducer= (state, action)=>{
                 ...state,
                 token: null,
                 message: action.payload
-            }    
+            }  
+        case GET_USER:      
         default:
             return state;
     }

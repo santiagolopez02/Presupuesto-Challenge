@@ -8,6 +8,12 @@ const JWTSing = "myPass"
 user.createUser = async (req, res)=>{
     const email = req.body.email;
     const body = req.body
+    
+    //check  error
+    const error = validationResult(req);
+    if(!error.isEmpty()){
+        return res.status(400).json({error : error.array()});
+    }
 
     //create record
     const newUser = await database.user.create(body)
@@ -36,6 +42,13 @@ user.createUser = async (req, res)=>{
 user.logIn = async (req, res) => {
     const userName = req.body.email;
     const pass = req.body.password;
+    
+    //check  error
+    const error = validationResult(req);
+    if(!error.isEmpty()){
+        return res.status(400).json({error : error.array()});
+    }
+
     //Find user record
     const userLog = await database.user.findOne({
         where:{
@@ -63,14 +76,22 @@ user.logIn = async (req, res) => {
 
         res.status(200).json({
             message : "User LogIn",
-            token
+            token,
+            userLog
         })
 
     }
 }
 
 //Middleware auxiliar function
-user.checkEmail= async(req, res,email, next) => {
+user.checkEmail= async(req, res, next) => {
+    
+    //check  error
+    const error = validationResult(req);
+    if(!error.isEmpty()){
+        return res.status(400).json({error : error.array()});
+    }
+
     //check valid email
     const emailValid = await database.user.findOne({
         where : {
@@ -87,7 +108,11 @@ user.checkEmail= async(req, res,email, next) => {
         return res.status(400).json({
             message: "The email is registered "
         })
+    }else{
+        next();
     }
 }
+
+
 
 module.exports = user;
