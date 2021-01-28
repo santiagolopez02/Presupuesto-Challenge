@@ -6,17 +6,18 @@ const budget = {};
 budget.createRecord = async (req , res) => {
     const loggerUser = res.locals.Payload;
 
+    //check  error
+    const error = validationResult(req);
+    if(!error.isEmpty()){
+        return res.status(400).json({error : error.array()});
+    }
+
     const bodyRecord = {
         concept: req.body.concept,
         amount: req.body.amount,
         date: req.body.date,
         type: req.body.type,
         userId: loggerUser.id
-    }
-    //check  error
-    const error = validationResult(req);
-    if(!error.isEmpty()){
-        return res.status(400).json({error : error.array()});
     }
     
     //create record
@@ -84,8 +85,13 @@ budget.typeRecord = async (req , res) => {
 
 //function get all record
 budget.getRecords = async (req , res) =>{
-    //select orden by "date" desc
+    const loggerUser = res.locals.Payload;
+
+    //select record by idUser/orden by "date" desc
     const arrayRecords = await database.budget.findAll({
+        where :{
+            userId : loggerUser.id
+        },
         order: [
             ['date', 'DESC'],
         ]

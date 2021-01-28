@@ -4,7 +4,7 @@ const budget = require('../controllers/budgetController');
 const generalMid = require('../middlewares/authToken')
 const { check } = require('express-validator');
 
-//path POST
+//route POST
 router.post("/",
     [
         check('concept', 'The concept is required').not().isEmpty(),
@@ -15,18 +15,21 @@ router.post("/",
     generalMid.validateToken,
     budget.createRecord
 );
-//path DELETE
+//route DELETE
 router.delete("/:id",
+  generalMid.validateToken,
   budget.deleteRecord
 );
-//path GET
+//route GET
 router.get("/",
+    generalMid.validateToken,
     budget.getRecords
 );
 router.put('/:id',
     [
         check('type', 'The type is required').not().isEmpty(),
     ],
+    generalMid.validateToken,
     budget.typeRecord
 );
 

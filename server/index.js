@@ -5,8 +5,8 @@ const database = require('./settingDB/database');
 const cors = require('cors')
 
 //conexion path
-const budget = require('./path/budgetPath');
-const user = require('./path/userPath');
+const budget = require('./route/budgetPath');
+const user = require('./route/userPath');
 
 //CORS
 server.use(cors());

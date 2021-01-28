@@ -5,10 +5,6 @@ const { check } = require('express-validator');
 
 
 router.post("/login", 
-    [
-        check('email', 'The email is required').not().isEmpty(),
-        check('password', 'The password is required').not().isEmpty(),
-    ],
     user.logIn
 );
 

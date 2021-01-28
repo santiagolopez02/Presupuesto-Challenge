@@ -2,6 +2,7 @@ const database = require("../settingDB/database");
 const user = {}
 const jwt = require("jsonwebtoken");
 const JWTSing = "myPass"
+const { validationResult } = require('express-validator')
 
 
 //create new user
@@ -24,11 +25,12 @@ user.createUser = async (req, res)=>{
         })
     })
     if(newUser){
+        //create token
         const token = jwt.sign({
             id: newUser.id,
             username: newUser.email,
         }, JWTSing );
-
+        //send response succesfully
         res.status(201).json({
             message : "User create succesfully",
             token,
@@ -43,14 +45,8 @@ user.logIn = async (req, res) => {
     const userName = req.body.email;
     const pass = req.body.password;
     
-    //check  error
-    const error = validationResult(req);
-    if(!error.isEmpty()){
-        return res.status(400).json({error : error.array()});
-    }
-
     //Find user record
-    const userLog = await database.user.findOne({
+    const newUser = await database.user.findOne({
         where:{
             email : userName,
             password : pass
@@ -63,21 +59,21 @@ user.logIn = async (req, res) => {
     })
 
     //check response   
-    if(!userLog){
+    if(!newUser){
         res.status(404).json({
             message : "Email/Password invalid"
         })
     }else{
-        res.locals.userPayload = userLog;
+        res.locals.userPayload = newUser;
         const token = jwt.sign({
-            id: userLog.id,
-            username: userLog.email,
+            id: newUser.id,
+            username: newUser.email,
         }, JWTSing );
 
         res.status(200).json({
             message : "User LogIn",
             token,
-            userLog
+            newUser
         })
 
     }

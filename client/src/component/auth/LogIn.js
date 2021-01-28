@@ -1,38 +1,63 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-const Login = () => {
+import AlertContext from '../../context/alert/alertContext'
+import AuthContext from '../../context/auth/authContext';
 
-//State de usuario
+const Login = (props) => {
+    //get value alert context
+    const alertContext = useContext(AlertContext); 
+    const { alert, showAlert} = alertContext;
+
+    //get value auth context
+    const authContext = useContext(AuthContext);
+    const {message, authenticated, logInUser} = authContext; 
+
+    //case error by duplicate record user or redirect budget page
+    useEffect(()=>{
+        //if authenticated is true
+        if(authenticated){
+            props.history.push('/budget');
+        }
+        //if there are msg errors
+        if(message){
+            showAlert(message.msg, message.category);
+        }
+    },[message, authenticated, props.history]); 
+
+    //State user
     const [ user, setUser] = useState({
         email:"",
         password:""
     })
-//Extraigo los valores en const diferentes
+    //get value state
     const {email, password} = user;
 
     
-//capto los valores de los input y guardo el usuario
+    //get value input
     const onChange = e =>{
         setUser({
             ...user,
             [e.target.name] : e.target.value
         })
     }
-//funcion para enviar el submit del form
-const onSubmit = e =>{
-    e.preventDefault();
+    //funcion by submit form
+    const onSubmit = e =>{
+        e.preventDefault();
 
-//Validar que los campos esten correctos
+        //validate field input
+        if(email.trim() === ''|| password.trim() === ''){
+            showAlert('All fields are required', 'alerta-error');
+            return;
+        }
 
-
-//Pasar al action
-
-}
+        //call function login
+        logInUser({email, password})
+    }
     return ( 
         <div>
             <div>
                 <h1>Iniciar Sesion</h1>
-
+                {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}    
                 <form
                     onSubmit={onSubmit}
                 >

@@ -5,67 +5,67 @@ import AuthContext from '../../context/auth/authContext';
 
 
 const NewAccount = (props) => {
-//get value alert context
-const alertContext = useContext(AlertContext); 
-const { alert, showAlert} = alertContext;
+    //get value alert context
+    const alertContext = useContext(AlertContext); 
+    const { alert, showAlert} = alertContext;
 
-//get value auth context
-const authContext = useContext(AuthContext);
-const {message, authenticated, createUser} = authContext;  
+    //get value auth context
+    const authContext = useContext(AuthContext);
+    const {message, authenticated, createUser} = authContext;  
 
-//case duplicate record user and redirect budget page
-useEffect(()=>{
-    //if authenticated is true
-    if(authenticated){
-        props.history.push('/budget');
-    }
-    //if there are msg errors
-    if(message){
-        showAlert(message.msg, message.category);
-    }
-},[message, authenticated, props.history]); 
+    //case duplicate record user and redirect budget page
+    useEffect(()=>{
+        //if authenticated is true
+        if(authenticated){
+            props.history.push('/budget');
+        }
+        //if there are msg errors
+        if(message){
+            showAlert(message.msg, message.category);
+        }
+    },[message, authenticated, props.history]); 
 
-//State user
-const [user, setUser] = useState({
-    email:"",
-    password:"",
-    confirm:""
-})
-const { email, password, confirm} = user; //get value
-
-    
-//get value input
-const onChange = e =>{
-    setUser({
-        ...user,
-        [e.target.name] : e.target.value
+    //State user
+    const [user, setUser] = useState({
+        email:"",
+        password:"",
+        confirm:""
     })
-}
+    const { email, password, confirm} = user; //get value
 
-//Submit form
-const onSubmit = e =>{
-    e.preventDefault();
-    //Validate field form
-    if(email.trim()==='' || password.trim()==='' || confirm.trim()===''){
-        showAlert('All fields are required', 'alerta-error');
-        return;
+        
+    //get value input
+    const onChange = e =>{
+        setUser({
+            ...user,
+            [e.target.name] : e.target.value
+        })
     }
-    //validate password min 6 characters
-    if(password.length < 6){
-        showAlert('The password have a minimum of 6 characters ', 'alerta-error');
-        return;
+
+    //Submit form
+    const onSubmit = e =>{
+        e.preventDefault();
+        //Validate field form
+        if(email.trim()==='' || password.trim()==='' || confirm.trim()===''){
+            showAlert('All fields are required', 'alerta-error');
+            return;
+        }
+        //validate password min 6 characters
+        if(password.length < 6){
+            showAlert('The password have a minimum of 6 characters ', 'alerta-error');
+            return;
+        }
+        //validate password and confirm
+        if(password !== confirm){
+            showAlert('Passwords must be the same', 'alerta-error');
+            return;
+        }
+        //Function auth context 
+        createUser({
+            email,
+            password
+        })
     }
-    //validate password and confirm
-    if(password !== confirm){
-        showAlert('Passwords must be the same', 'alerta-error');
-        return;
-    }
-    //Function auth context 
-    createUser({
-        email,
-        password
-    })
-}
     return ( 
         <div>
             {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
