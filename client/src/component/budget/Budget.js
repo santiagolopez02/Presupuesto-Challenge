@@ -1,7 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
 const Budget = () => {
+    //state initial
+    const [record , setRecord] = useState({
+        concept:"",
+        amount:"",
+        date:"",
+        type:""
+    })
     return ( 
         <li>
             <p>Nombre</p>

@@ -5,6 +5,11 @@ export const SUCCESSFUL_LOGIN = 'SUCCESSFUL_LOGIN'
 export const ERROR_LOGIN = 'ERROR_LOGIN'
 export const LOG_OUT = 'LOG_OUT'
 
-
 export const SHOW_ALERT = 'SHOW_ALERT';
 export const HIDE_ALERT = 'HIDE_ALERT';
+
+export const CREATE_RECORD = 'CREATE_RECORD';
+export const ERROR_CREATE = 'ERROR_CREATE';
+export const DELETE_RECORD = 'DELETE_RECORD';
+export const UPDATE_RECORD = 'UPDATE_RECORD';
+export const GET_RECORD = 'GET_RECORD'

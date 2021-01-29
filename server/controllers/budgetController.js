@@ -11,7 +11,7 @@ budget.createRecord = async (req , res) => {
     if(!error.isEmpty()){
         return res.status(400).json({error : error.array()});
     }
-
+    
     const bodyRecord = {
         concept: req.body.concept,
         amount: req.body.amount,

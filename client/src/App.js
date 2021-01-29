@@ -6,6 +6,7 @@ import BudgetComponent from './component/budget/BudgetComponent';
 
 import AuthState from './context/auth/authState'
 import AlertState from './context/alert/alertState'
+import BudgetState from './context/records/budgetState'
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   return (
     <AlertState>
       <AuthState>
+        <BudgetState>
           <Router>
             <Switch>
               <Route exact path="/" component={LogIn}/>
@@ -20,6 +22,7 @@ function App() {
               <Route exact path="/budget" component={BudgetComponent}/>
             </Switch>
           </Router>
+        </BudgetState>
       </AuthState> 
     </AlertState> 
   );
