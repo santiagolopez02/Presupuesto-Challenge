@@ -8,10 +8,13 @@ import AuthState from './context/auth/authState'
 import AlertState from './context/alert/alertState'
 import BudgetState from './context/records/budgetState'
 
+import PrivateRoute from './component/route/PrivateRoute'
+
 
 function App() {
   console.log(process.env.REACT_APP_BACKEND_URL);
   return (
+    
     <AlertState>
       <AuthState>
         <BudgetState>
@@ -19,7 +22,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={LogIn}/>
               <Route exact path="/new-account" component={CreateAccount}/>
-              <Route exact path="/budget" component={BudgetComponent}/>
+              <PrivateRoute exact path="/budget" component={BudgetComponent}/>
             </Switch>
           </Router>
         </BudgetState>

@@ -15,8 +15,9 @@ const BudgetState = (props) => {
     //initial state 
     const initialState = {
         budgetApi : [],
-        error: null,
-        budgetSelect : null
+        budgetSelect : null,
+        newBudget: null,
+        message: null
     }
 
     //use the hook reducer
@@ -29,18 +30,93 @@ const BudgetState = (props) => {
 
         try {
             const response = await clientAxios.post('/budget', data)
-            console.log(response);
             
-            //dispach({
-            //    type:CREATE_RECORD,
-            //    payload: response.data
-            //});
+            dispach({
+                type:CREATE_RECORD,
+                payload: response.data
+            });
         } catch (error) {
-            console.log(error.response)
+            const alert = {
+                msg: error.response.data.message,
+                category: 'alerta-error'
+            }
             dispach({
                 type:ERROR_CREATE,
-                
+                payload: alert
             });
+        }
+    }
+
+    //function to get 
+    const getDataRecord = async () => {
+        const token = localStorage.getItem('token');
+        authToken(token);
+
+        try {
+            const response = await clientAxios.get("/budget");
+            
+            dispach({
+                type: GET_RECORD,
+                payload : response.data.arrayRecords
+            })
+        } catch (error) {
+            const alert = {
+                msg: error.response.data.message,
+                category: 'alerta-error'
+            }
+            dispach({
+                type:ERROR_CREATE,
+                payload: alert
+            });
+            
+        }
+    }
+
+    //function delete record
+    const deleteRecord = async (id) => {
+        const token = localStorage.getItem('token');
+        authToken(token);
+        
+        try {
+            const response = await clientAxios.delete(`/budget/${id}`)
+           
+            dispach({
+                type: DELETE_RECORD,
+                payload: response.data
+            })
+            
+        } catch (error) {
+            const alert = {
+                msg: error.response.data.message,
+                category: 'alerta-error'
+            }
+            dispach({
+                type:ERROR_CREATE,
+                payload: alert
+            });
+        }
+    }
+
+    //function to changed type
+    const changedRecord = async (id, data) => {
+        const token = localStorage.getItem('token');
+        authToken(token);
+
+        try {
+            const response = await clientAxios.put(`/budget/${id}`, data)
+            dispach({
+                type: UPDATE_RECORD,
+                payload : response.data
+            })
+        } catch (error) {
+            const alert = {
+                msg: error.response.data.message,
+                category: 'alerta-error'
+            }
+            dispach({
+                type:ERROR_CREATE,
+                payload: alert
+            });         
         }
     }
 
@@ -50,7 +126,12 @@ const BudgetState = (props) => {
                 budgetApi: state.budgetApi,
                 budgetSelect: state.budgetSelect,
                 error: state.error,
-                createRecord
+                newBudget: state.newBudget,
+                message: state.message,
+                createRecord,
+                getDataRecord,
+                deleteRecord,
+                changedRecord
             }}
         >
             {props.children}

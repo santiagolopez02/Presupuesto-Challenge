@@ -20,19 +20,24 @@ const AuthReducer= (state, action)=>{
                 authenticated: true,
                 message: null
             }
-        //return error 
+         
+        //return error and logout
+        case LOG_OUT:  
         case ERROR_LOGIN:       
         case ERROR_REGISTRATION:
             localStorage.removeItem('token')
             return{
                 ...state,
                 token: null,
+                user: null,
+                authenticated:null,
                 message: action.payload
             }  
         case GET_USER:
             return{
                 ...state,
                 token: action.payload.token,
+                authenticated:true,
                 user: action.payload.newUser
             }      
         default:

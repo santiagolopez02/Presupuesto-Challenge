@@ -11,21 +11,24 @@ const FormBudget = () => {
 
     //get value budget context
     const budgetContext = useContext(BudgetContext);
-    const {createRecord} = budgetContext
+    const {createRecord, getDataRecord} = budgetContext
 
-    //state initial
-    const [budget, setBudget]  = useState({
+    const initialBudget= {
         concept:"",
         amount:"",
         date:"",
         type:""
-    });
+    }
+
+    //state initial
+    const [budget, setBudget]  = useState(initialBudget);
 
     //get value budget
     const { concept, amount, date, type } = budget;
 
     //get value input
     const onChange = e =>{
+        e.preventDefault();
         setBudget({
             ...budget,
             [e.target.name] : e.target.value
@@ -45,52 +48,64 @@ const FormBudget = () => {
 
         //call function create record
         createRecord(budget);
+
+        //reset form
+        setBudget(initialBudget)
+
+        //getDataRecord
+        getDataRecord()
     } 
     return ( 
         <form
             onSubmit={onSubmit}
         >
-            <div>
-                <label htmlFor="concept">Concept: </label>
+            <h2 className="subTitle">Create Record</h2>
+            <div className="container">
+                <label htmlFor="concept" className="text">Concept: </label>
                 <input
                     type="text"
                     name="concept"
                     id="concept"
                     onChange={onChange}
+                    value= {budget.concept}
                 />
             </div>
-            <div>
-                <label htmlFor="amount">Amount: </label>
+            <div className="container">
+                <label htmlFor="amount" className="text">Amount: </label>
                 <input
                     type="number"
                     name="amount"
                     id="amount"
                     onChange={onChange}
+                    value= {budget.amount}
                 />
             </div>
-            <div>
-                <label htmlFor="date">Date: </label>
+            <div className="container">
+                <label htmlFor="date" className="text">Date: </label>
                 <input
                     type="text"
                     name="date"
                     id="date"
                     onChange={onChange}
+                    value= {budget.date}
                 />
                 
             </div>
-            <div>
-                <label htmlFor="type">Type: </label>
+            <div className="container">
+                <label htmlFor="type" className="text">Type: </label>
                 <select
                     onChange={onChange}
                     name="type"
+                    value= {budget.type}
                 >
                     <option value="">--Select type--</option>
                     <option value="income">INCOME</option>
                     <option value="expenses">EXPENSE</option>
                 </select>
             </div>
-            <div>
+            <div className="container">
                  <input 
+                 className="btn"
                  type="submit" 
                  value ="Create"
                  /> 

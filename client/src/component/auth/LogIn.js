@@ -54,15 +54,15 @@ const Login = (props) => {
         logInUser({email, password})
     }
     return ( 
-        <div>
+        <div className="container container-color">
             <div>
-                <h1>Iniciar Sesion</h1>
+                <h1 className="title">Log In</h1>
                 {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}    
                 <form
                     onSubmit={onSubmit}
                 >
-                    <div>
-                        <label htmlFor="email">Email: </label>
+                    <div className="container">
+                        <label htmlFor="email" className="text">Email: </label>
                         <input
                             type="email"
                             id="email"
@@ -72,8 +72,8 @@ const Login = (props) => {
                             onChange={onChange}
                         />
                     </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
+                    <div className="container">
+                        <label htmlFor="password" className="text">Password: </label>
                         <input
                             type="password"
                             id="password"
@@ -83,8 +83,9 @@ const Login = (props) => {
                             onChange={onChange}
                         />
                     </div>
-                    <div>
+                    <div className="container">
                         <input
+                            className="btn"
                             type="submit"
                             id="submit"
                             value="Iniciar Sesion"
@@ -93,6 +94,7 @@ const Login = (props) => {
                 </form>
 
                 <Link
+                    className="btn link"
                     to={'/new-account'}
                     
                 >Create account</Link>

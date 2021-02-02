@@ -51,14 +51,17 @@ budget.deleteRecord = async (req , res) => {
     });
     //send msg succesfully
     res.status(200).json({
-        message: "Record delete succesfully"
+        message: "Record delete succesfully",
+        id: idRecord
     })
 }
 
 //fuction change type
 budget.typeRecord = async (req , res) => {
     const idRecord = req.params.id;
-    const typeChange = req.body.type;
+    const conceptChange = req.body.concept;
+    const amountChange = req.body.amount;
+    const dateChange = req.body.date
 
     //check  error
     const error = validationResult(req);
@@ -66,7 +69,11 @@ budget.typeRecord = async (req , res) => {
         return res.status(400).json({error : error.array()});
     }
     
-    const selectBudget = await database.budget.update({ type: typeChange }, {
+    const selectBudget = await database.budget.update( {
+        concept : conceptChange,
+        amount: amountChange,
+        date: dateChange
+    } , {
         where :{
             id : idRecord
         }

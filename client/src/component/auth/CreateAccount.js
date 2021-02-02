@@ -67,16 +67,16 @@ const NewAccount = (props) => {
         })
     }
     return ( 
-        <div>
+        <div className="container container-color">
             {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
             <div>
-                <h1>Crear una Nueva Cuenta</h1>
+                <h1 className="title">New Account</h1>
 
                 <form
                     onSubmit={onSubmit}
                 >
-                    <div className="campo-form">
-                        <label htmlFor="email">Email: </label>
+                    <div className="container">
+                        <label htmlFor="email" className="text">Email: </label>
                         <input
                             type="email"
                             id="email"
@@ -86,8 +86,8 @@ const NewAccount = (props) => {
                             onChange={onChange}
                         />
                     </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
+                    <div className="container">
+                        <label htmlFor="password" className="text">Password: </label>
                         <input
                             type="password"
                             id="password"
@@ -97,8 +97,8 @@ const NewAccount = (props) => {
                             onChange={onChange}
                         />
                     </div>
-                    <div>
-                        <label htmlFor="confirm">Confirm password:</label>
+                    <div className="container">
+                        <label htmlFor="confirm" className="text">Confirm password: </label>
                         <input
                             type="password"
                             id="confirm"
@@ -108,8 +108,9 @@ const NewAccount = (props) => {
                             onChange={onChange}
                         />
                     </div>
-                    <div>
+                    <div className="container">
                         <input
+                            className="btn"
                             type="submit"
                             id="submit"
                             value="Create Account"
@@ -119,6 +120,7 @@ const NewAccount = (props) => {
                 
                 
                 <Link
+                    className="btn link"
                     to={'/'}
                 >Login</Link>
             </div>

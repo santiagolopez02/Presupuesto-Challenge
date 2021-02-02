@@ -27,7 +27,9 @@ router.get("/",
 );
 router.put('/:id',
     [
-        check('type', 'The type is required').not().isEmpty(),
+        check('concept', 'The concept is required').not().isEmpty(),
+        check('amount', 'The amount is required').not().isEmpty(),
+        check('date', 'The date is required').not().isEmpty(),
     ],
     generalMid.validateToken,
     budget.typeRecord
