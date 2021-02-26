@@ -68,7 +68,7 @@ const Login = (props) => {
                             id="email"
                             name="email"
                             value = {email}
-                            placeholder="Tu email..."
+                            placeholder="Your email..."
                             onChange={onChange}
                         />
                     </div>
@@ -79,7 +79,7 @@ const Login = (props) => {
                             id="password"
                             value={password}
                             name="password"
-                            placeholder="Tu password..."
+                            placeholder="Your password..."
                             onChange={onChange}
                         />
                     </div>
@@ -88,7 +88,7 @@ const Login = (props) => {
                             className="btn"
                             type="submit"
                             id="submit"
-                            value="Iniciar Sesion"
+                            value="Log In"
                         />
                     </div>
                 </form>

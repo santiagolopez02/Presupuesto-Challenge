@@ -83,7 +83,7 @@ const FormBudget = () => {
             <div className="container">
                 <label htmlFor="date" className="text">Date: </label>
                 <input
-                    type="text"
+                    type="date"
                     name="date"
                     id="date"
                     onChange={onChange}

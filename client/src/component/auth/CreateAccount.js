@@ -52,7 +52,7 @@ const NewAccount = (props) => {
         }
         //validate password min 6 characters
         if(password.length < 6){
-            showAlert('The password have a minimum of 6 characters ', 'alerta-error');
+            showAlert('The password has a minimum of 6 characters ', 'alerta-error');
             return;
         }
         //validate password and confirm
@@ -98,7 +98,7 @@ const NewAccount = (props) => {
                         />
                     </div>
                     <div className="container">
-                        <label htmlFor="confirm" className="text">Confirm password: </label>
+                        <label htmlFor="confirm" className="text">Confirm: </label>
                         <input
                             type="password"
                             id="confirm"

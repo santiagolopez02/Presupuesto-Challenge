@@ -15,9 +15,9 @@ const ListBudget = () => {
     const budgetContext = useContext(BudgetContext);
     const { budgetApi, getDataRecord } = budgetContext;
 
-
+    
     useEffect(() => {
-        getDataRecord()
+      getDataRecord()
     }, []);  
 
     return ( 

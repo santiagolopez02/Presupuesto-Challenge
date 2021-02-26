@@ -72,6 +72,8 @@ code {
 }
 
 .text{
+  display: inline-block;
+  width: 80px;
   text-align:  center;
   font-family: Georgia, 'Times New Roman', Times, serif;
   color: rgb(236, 122, 122);
